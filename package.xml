@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<package>
+  <name>roscloud_teleop_demo</name>
+  <version>0.0.1</version>
+  <description>ROS Cloud Robotics Framework</description>
+  <maintainer email="wallar@mit.edu">Alex Wallar</maintainer>
+  <license>GPLv3</license>
+  <url type="website">http://github.com/roscloud/roscloud_demo</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>std_msgs</run_depend>
+</package>
