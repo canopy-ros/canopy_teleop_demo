@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+
+<launch>
+  <arg name="joy_dev" default="/dev/input/js0" />
+  <arg name="cmd_vel_topic" default="/cmd_vel"/>
+  <node name="joy" pkg="joy" type="joy_node" output="screen" >
+    <param name="dev" value="$(arg joy_dev)" />
+  </node>
+
+  <!-- Note that axis IDs are those from the joystick message plus one, to be able to invert axes by specifiying either positive or negative axis numbers.-->
+  <!-- Axis 2 from joy message thus has to be set as '3' or '-3'(inverted mode) below-->
+  <node name="quadrotor_teleop" pkg="hector_quadrotor_teleop" type="quadrotor_teleop">
+    <param name="x_axis" value="5"/>
+    <param name="y_axis" value="4"/>
+    <param name="z_axis" value="2"/>
+    <param name="yaw_axis" value="1"/>
+    <remap from="cmd_vel" to="$(arg cmd_vel_topic)"/>
+  </node>
+
+  <node name="roscloud_client" pkg="roscloud_client" type="client_node.py">
+    <param name="name" value="teleop_controller"/>
+    <param name="host" value="wallar.me"/>
+    <param name="port" value="8080"/>
+    <param name="private_key" value="MIICXAIBAAKBgQCTUQ49FJUCVvU5tIag" />
+    <param name="description" value="Teleoperation Controller" />
+    <rosparam>
+            publishing:
+                - /cmd_vel
+            types:
+                - geometry_msgs/Twist
+            trusted:
+                - quadrotor
+    </rosparam>
+  </node>
+</launch>
