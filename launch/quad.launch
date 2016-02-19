@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<launch>
+    <arg name="host" default="wallar.me" />
+    <arg name="port" default="8080"/>
+
+    <node pkg="roscloud_client" type="client_node.py" name="quad" output="screen">
+        <param name="name" value="quad"/>
+        <param name="host" value="$(arg host)"/>
+        <param name="port" value="$(arg port)"/>
+        <param name="private_key" value="MIICXAIBAAKBgQCTUQ49FJUCVvU5tIag" />
+        <param name="description" value="quad1" />
+        <rosparam>
+            publishing:
+                - /odom
+            types:
+                - nav_msgs/Odometry
+            trusted:
+                - ".*"
+        </rosparam>
+        <remap from="/teleop_controller/mavros/rc/override" to="/mavros/rc/override" />
+    </node>
+</launch>
